@@ -22,7 +22,8 @@ class EnvironmentBase:
         Args:
             player: the player
             action: the action
-        Returns:
+        Returns: tuple of (State, Reward)
+            State - an observation of the next state.
             Reward for the action taken if the action is legal. # for now - return only 0.
             If the action is illegal - returns None.
         """
