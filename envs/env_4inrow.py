@@ -1,7 +1,7 @@
-from .env_base import EnvironmentBase
+from .env_base import Environment
 
 
-class Env4InRow(EnvironmentBase):
+class Env4InRow(Environment):
     """
     An environment representing a 4-in-row game.
     Args:
