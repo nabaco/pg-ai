@@ -4,10 +4,12 @@ class Agent:
 
     def choose_action(self, env):
         """
-        Chooses an action to take on the environment.
+        Chooses and returns an action to take on the environment.
         Args:
             env (Environment): the environment on which to take an action
                 based upon the observations.
+        Returns:
+            action: the action that was chosen by the agent.
         """
         raise NotImplementedError
 
