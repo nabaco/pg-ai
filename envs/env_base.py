@@ -1,9 +1,10 @@
-class Environment:
+class EnvironmentBase:
     """
     Base class for all environments.
     Args:
         player1, player2: the player objects.
     """
+
     def __init__(self, player1, player2):
         self.player1 = player1
         self.player2 = player2
