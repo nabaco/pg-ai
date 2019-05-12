@@ -45,7 +45,7 @@ class MinimaxAgent(SearchAgentBase):
         pass
 
 
-class AlphaBetaPruningAget(SearchAgentBase):
+class AlphaBetaPruningAgent(SearchAgentBase):
     """
     This agent implements the alpha-beta pruning algorithm, described in the book AIMA (3rd edition): Chapter 5.3.
     TODO - Implement!
