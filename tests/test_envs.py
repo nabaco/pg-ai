@@ -1,14 +1,6 @@
 #!/usr/bin/env python3
-try:
-    from ..envs import *
-    from ..agents import *
-except (ImportError, ValueError):
-    import os
-    import sys
-    parentdir = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
-    sys.path.insert(0, parentdir)
-    from envs import *
-    from agents import *
+from ..envs  import *
+from ..agents import *
 
 import pytest
 
