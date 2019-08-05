@@ -2,5 +2,4 @@ language: python
 python:
   - '3.6'
 script:
-  - cd tests
-  - pytest
+  - python -m pytest
