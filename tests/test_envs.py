@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-from ..envs  import *
-from ..agents import *
+from envs  import *
+from agents import *
 
 import pytest
 
