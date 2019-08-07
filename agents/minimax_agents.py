@@ -1,6 +1,7 @@
 from .agent_base import Agent
 # Note - from this point on, we refer to the book 'Artificial Intelligence: a Modern Approach' as AIMA.
 
+from threading import Timer
 DEFAULT_SEARCH_DEPTH = 3  # Maximum depth of the search
 TIMEOUT = 10.  # Maximum time for the agent to search through the state space
 
@@ -26,6 +27,7 @@ class SearchAgentBase(Agent):
     """
     Base class for searching agents, like minimax and alpha-beta pruning agents.
     """
+
     def __init__(self, name, search_depth=DEFAULT_SEARCH_DEPTH, score_fn=default_score_fn, timeout=TIMEOUT):
         super(SearchAgentBase, self).__init__(name)
         self.search_depth = search_depth
@@ -39,10 +41,55 @@ class SearchAgentBase(Agent):
 class MinimaxAgent(SearchAgentBase):
     """
     This agent implements the minimax algorithm, described in the book AIMA (3rd edition): Chapter 5.2.
-    TODO - Implement!
     """
+    @staticmethod
+    def timeout_error():
+        """function to arise TimeError"""
+        raise TimeoutError
+
+    def max_value(self, node, depth):
+
+        # Check terminal state or max search depth
+        if node.is_terminal_state() or depth == 0:
+            return self.score_fn(node, self)
+
+        # Return MAX value of children nodes
+        val = -float("inf")
+        for move in node.available_moves(node.current_player):
+            child = node.copy()
+            child.apply_action(node.current_player, move)
+            val = max(val, self.min_value(child, depth - 1))
+        return val
+
+    def min_value(self, node, depth):
+
+        # Check terminal state or max search depth
+        if node.is_terminal_state() or depth == 0:
+            return self.score_fn(node, self)
+
+        # Return MIN value of children nodes
+        val = float("inf")
+        for move in node.available_moves(node.current_player):
+            child = node.copy()
+            child.apply_action(node.current_player, move)
+            val = min(val, self.max_value(child, depth - 1))
+        return val
+
+    def minimax(self, env, move, depth):
+        timer = Timer(self.timeout, self.timeout_error)
+        timer.start()
+        child = env.copy()
+        child.apply_action(self, move)
+        val = self.min_value(child, depth - 1)
+        timer.cancel()
+        return val
+
     def choose_action(self, env):
-        pass
+        available_moves = list(env.available_moves(self))
+        if available_moves:
+            best_move = max(available_moves, key = lambda x: self.minimax(env, x, self.search_depth))
+            return best_move
+        return None
 
 
 class AlphaBetaPruningAgent(SearchAgentBase):
@@ -50,5 +97,6 @@ class AlphaBetaPruningAgent(SearchAgentBase):
     This agent implements the alpha-beta pruning algorithm, described in the book AIMA (3rd edition): Chapter 5.3.
     TODO - Implement!
     """
+
     def choose_action(self, env):
         pass
