@@ -3,3 +3,5 @@ scikit-learn
 pandas
 scipy
 jupyter
+Keras
+matplotlib
